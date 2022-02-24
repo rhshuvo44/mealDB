@@ -1,13 +1,17 @@
 const searchBtn=()=> {
-    const searchInput= document.getElementById('search-input').value;
+    const searchText= document.getElementById('search-input');
+    const searchInput =searchText.value
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`
     fetch(url)
     .then(res=>res.json())
     .then(data => search(data))
+    searchInput.value =''
+
 }
 
 const search= (data)=>{
     const searchResult = document.getElementById('search-result');
+    document.getElementById('single-result').value =''
     const meals = data.meals;
     // console.log(data.meals);
     for (const meal of meals) {
@@ -32,7 +36,10 @@ const single= (mealId)=>{
     .then(data => loadData(data))
 }
 const loadData = (data) =>{
+  const single = document.getElementById('single-result');
     // console.log(data.meals[0]);
+    single.textContent=''
+    const meal=data.meals[0];
     const div = document.createElement('div');
     div.classList.add('card');
     div.innerHTML =`
@@ -44,4 +51,5 @@ const loadData = (data) =>{
             <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
     `;
+    single.appendChild(div);
 }
