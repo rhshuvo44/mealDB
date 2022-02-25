@@ -39,6 +39,8 @@ const single= (mealId)=>{
 }
 const loadData = (data) =>{
   const single = document.getElementById('single-result');
+  single.innerHTML = ''
+
     // console.log(data.meals[0]);
     const meal=data.meals[0];
     const div = document.createElement('div');
