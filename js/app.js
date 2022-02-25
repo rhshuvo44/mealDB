@@ -1,26 +1,28 @@
 const searchBtn=()=> {
     const searchText= document.getElementById('search-input');
     const searchInput =searchText.value;
-  document.getElementById('load').style.display ='block';
+    document.getElementById('load').style.display ='block';
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`
     fetch(url)
     .then(res=>res.json())
     .then(data => search(data))
+    .catch(Error =>{
+      document.getElementById('no-search').style.display='block';
+
+    })
     searchInput.value= '';
   const single = document.getElementById('single-result');
-  single.innerHTML = ''
+  single.innerHTML = '';
+  document.getElementById('no-search').style.display='none';
+
 
 }
-// document.getElementById('search-input').addEventListener('click',function(){
-//   document.getElementById('load').style.display ='block'
-// })
 const search= (data)=>{
     const searchResult = document.getElementById('search-result');
     searchResult.innerHTML ='';
   document.getElementById('load').style.display ='none';
 
     const meals = data.meals;
-    // console.log(data.meals);
     for (const meal of meals) {
         const div = document.createElement('div');
         div.classList.add('col');
@@ -46,7 +48,6 @@ const loadData = (data) =>{
   const single = document.getElementById('single-result');
   single.innerHTML = ''
 
-    // console.log(data.meals[0]);
     const meal=data.meals[0];
     const div = document.createElement('div');
     div.classList.add('card');
@@ -61,5 +62,3 @@ const loadData = (data) =>{
     `;
     single.appendChild(div);
 }
-
-// pothome input flid mouse nile loading hobe then search btn clcick korle loading of hobe 
