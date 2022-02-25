@@ -1,29 +1,56 @@
 const searchBtn=()=> {
     const searchText= document.getElementById('search-input');
-    const searchInput =searchText.value;
+    let searchInput =searchText.value;
+
     document.getElementById('load').style.display ='block';
+    if (searchInput=='') {
+  // no input error
+  document.getElementById('no-input-erro').style.display ='block';
+  // loading 
+  document.getElementById('load').style.display ='none';
+  // result 
+  const searchResult = document.getElementById('search-result');
+    searchResult.innerHTML ='';
+    // single result 
+    const single = document.getElementById('single-result');
+  single.innerHTML = '';
+  // no search error
+  document.getElementById('no-search-erro').style.display='none';
+
+    } else {
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`
     fetch(url)
     .then(res=>res.json())
     .then(data => search(data))
     .catch(Error =>{
-      document.getElementById('no-search').style.display='block';
-
+  // no search error
+      document.getElementById('no-search-erro').style.display='block';
     })
-    searchInput.value= '';
   const single = document.getElementById('single-result');
   single.innerHTML = '';
-  document.getElementById('no-search').style.display='none';
+  // no search error
+  document.getElementById('no-search-erro').style.display='none';
+  // no input error
+  document.getElementById('no-input-erro').style.display ='none';
+ 
 
+    }
+ //input clean
+  searchInput.value= '';
 
 }
+
+// card result 
+
 const search= (data)=>{
     const searchResult = document.getElementById('search-result');
     searchResult.innerHTML ='';
+    //loding
   document.getElementById('load').style.display ='none';
 
     const meals = data.meals;
     for (const meal of meals) {
+      // card result 
         const div = document.createElement('div');
         div.classList.add('col');
         div.innerHTML =`
@@ -38,6 +65,7 @@ const search= (data)=>{
       searchResult.appendChild(div)
         }
 }
+// single result
 const single= (mealId)=>{
     const url=`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`;
     fetch(url)
@@ -49,6 +77,7 @@ const loadData = (data) =>{
   single.innerHTML = ''
 
     const meal=data.meals[0];
+    // single card result
     const div = document.createElement('div');
     div.classList.add('card');
     div.innerHTML =`
