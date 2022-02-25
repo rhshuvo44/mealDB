@@ -5,13 +5,15 @@ const searchBtn=()=> {
     fetch(url)
     .then(res=>res.json())
     .then(data => search(data))
-    searchInput.value =''
+    searchInput.value= '';
+  const single = document.getElementById('single-result');
+  single.innerHTML = ''
 
 }
 
 const search= (data)=>{
     const searchResult = document.getElementById('search-result');
-    document.getElementById('single-result').value =''
+    searchResult.innerHTML =''
     const meals = data.meals;
     // console.log(data.meals);
     for (const meal of meals) {
@@ -38,7 +40,6 @@ const single= (mealId)=>{
 const loadData = (data) =>{
   const single = document.getElementById('single-result');
     // console.log(data.meals[0]);
-    single.textContent=''
     const meal=data.meals[0];
     const div = document.createElement('div');
     div.classList.add('card');
