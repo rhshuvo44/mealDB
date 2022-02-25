@@ -1,6 +1,7 @@
 const searchBtn=()=> {
     const searchText= document.getElementById('search-input');
-    const searchInput =searchText.value
+    const searchInput =searchText.value;
+  document.getElementById('load').style.display ='block';
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`
     fetch(url)
     .then(res=>res.json())
@@ -10,10 +11,14 @@ const searchBtn=()=> {
   single.innerHTML = ''
 
 }
-
+// document.getElementById('search-input').addEventListener('click',function(){
+//   document.getElementById('load').style.display ='block'
+// })
 const search= (data)=>{
     const searchResult = document.getElementById('search-result');
-    searchResult.innerHTML =''
+    searchResult.innerHTML ='';
+  document.getElementById('load').style.display ='none';
+
     const meals = data.meals;
     // console.log(data.meals);
     for (const meal of meals) {
@@ -56,3 +61,5 @@ const loadData = (data) =>{
     `;
     single.appendChild(div);
 }
+
+// pothome input flid mouse nile loading hobe then search btn clcick korle loading of hobe 
